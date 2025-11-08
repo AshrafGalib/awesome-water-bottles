@@ -1,19 +1,36 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { use } from 'react';
 import Bottle from '../Bottle/Bottle';
 import "./Bottles.css"
+import { getCartFromLocalStorage, setCartToLocalStorage } from '../../../utilities/localStorage';
 
 const Bottles = ({bottlesPromise}) => {
 const bottles =use(bottlesPromise)
-    const [cart,setCount]=useState([])
+//console.log(bottles)
+    const [cart,setCart]=useState([])
+  
+    useEffect(()=>{
+    const storeCartIDs  = getCartFromLocalStorage()
+    console.log(storeCartIDs)
+    const storedCart =[]
+    for(const id of storeCartIDs ){
+    console.log(id)
+    const cartBottle =bottles.find(bottle=>bottle.id===id)
+    if(cartBottle){
+        storedCart.push(cartBottle)
+    }
+    }
+    setCart(storedCart)
+   },[bottles]) 
    
-    const handleToAddCart =(bottle)=>{
+   const handleToAddCart =(bottle)=>{
         // console.log(bottle)
         const newCart =[...cart,bottle]
-        setCount(newCart)
+        setCart(newCart)
+        setCartToLocalStorage(bottle.id)
     }
 
-    // console.log(bottles)
+   
     return (
         <>
             <h1>Buy awesome Water Bottles.</h1>
