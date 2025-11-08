@@ -1,0 +1,16 @@
+.bottles-container{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 10px;
+}
+
+.two-columns-container{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+}
+
+.cart-card{
+    border: 10px solid lightseagreen;
+    padding: 30px;
+    margin: 10px;
+}
