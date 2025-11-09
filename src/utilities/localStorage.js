@@ -14,4 +14,11 @@ const setCartToLocalStorage =(id)=>{
     localStorage.setItem('cart',cartStringified) 
 }
 
-export{getCartFromLocalStorage,setCartToLocalStorage}
+const removeFromCart=(id)=>{
+  const storedIDs =getCartFromLocalStorage ()
+const remainigProduct =storedIDs.filter(storedID => storedID !== id )
+ const cartStringified =JSON.stringify(remainigProduct)
+    localStorage.setItem('cart',cartStringified)
+}
+
+export{getCartFromLocalStorage,setCartToLocalStorage,removeFromCart}
