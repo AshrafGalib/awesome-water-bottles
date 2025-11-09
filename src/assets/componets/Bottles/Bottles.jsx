@@ -3,6 +3,7 @@ import { use } from 'react';
 import Bottle from '../Bottle/Bottle';
 import "./Bottles.css"
 import { getCartFromLocalStorage, setCartToLocalStorage } from '../../../utilities/localStorage';
+import Cart from '../Cart/Cart';
 
 const Bottles = ({bottlesPromise}) => {
 const bottles =use(bottlesPromise)
@@ -20,7 +21,9 @@ const bottles =use(bottlesPromise)
         storedCart.push(cartBottle)
     }
     }
+    console.log(storedCart)
     setCart(storedCart)
+    
    },[bottles]) 
    
    const handleToAddCart =(bottle)=>{
@@ -28,6 +31,12 @@ const bottles =use(bottlesPromise)
         const newCart =[...cart,bottle]
         setCart(newCart)
         setCartToLocalStorage(bottle.id)
+    }
+
+    const handleToRemoveFromCart =(id)=>{
+        
+        const remainingCart =cart.filter(bottle=>bottle.id !== id)
+        setCart(remainingCart)
     }
 
    
@@ -48,7 +57,7 @@ const bottles =use(bottlesPromise)
            
         </div>
         <div className='cart-card'>
-        <h2>Added to cart: {cart.length}</h2>
+        <Cart handleToRemoveFromCart={handleToRemoveFromCart} cart={cart}></Cart>
         </div>
             </div>
             
